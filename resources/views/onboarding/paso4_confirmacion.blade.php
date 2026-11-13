@@ -31,7 +31,7 @@
             </div>
 
             <div>
-                <a href="{{ route('dashboard') }}" class="btn btn-pink text-white fw-bold px-5 py-3 rounded-3 shadow-lg">
+                <a href="{{ route('estudiante.dashboard') }}" class="btn btn-pink text-white fw-bold px-5 py-3 rounded-3 shadow-lg">
                     Ir a mi Dashboard Académico <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>
