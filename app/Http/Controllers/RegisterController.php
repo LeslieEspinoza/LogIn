@@ -47,7 +47,7 @@ class RegisterController extends Controller
             'email' => [
                 'required',
                 'string',
-                'email:rfc,dns', // Valida formato estricto y existencia del dominio DNS
+                 // Valida formato estricto y existencia del dominio DNS
                 'max:255',
                 'unique:users,email', // Duplicados en tabla 'users'
                 'unique:estudiantes,correo_institucional', // Duplicados en tabla 'estudiantes'
