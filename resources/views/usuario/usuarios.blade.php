@@ -61,11 +61,12 @@
                                             <i class="bi bi-pencil-fill fs-6 text-pink"></i>
                                         </button>
                                         <!-- Botón Eliminar -->
-                                        <form action="{{ route('usuarios.destroy', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que deseas eliminar a {{ $user->name }}?');">
+                                        <!-- Botón Dar de Baja / Reactivar -->
+                                        <form action="{{ route('usuarios.estado', $user) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que deseas {{ $user->is_active ? 'dar de baja' : 'reactivar' }} a {{ $user->name }}?');">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger border-0" title="Eliminar Usuario">
-                                                <i class="bi bi-trash-fill fs-6"></i>
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-sm {{ $user->is_active ? 'btn-outline-danger' : 'btn-outline-success' }} border-0" title="{{ $user->is_active ? 'Dar de baja' : 'Reactivar Usuario' }}">
+                                                <i class="bi {{ $user->is_active ? 'bi-person-x-fill' : 'bi-person-check-fill' }} fs-6"></i>
                                             </button>
                                         </form>
                                     </div>

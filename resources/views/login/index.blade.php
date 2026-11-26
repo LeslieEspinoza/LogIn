@@ -52,12 +52,9 @@
                             <i class="bi bi-at"></i>
                         </span>
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
-                               class="form-control bg-dark text-white border-secondary border-opacity-50 @error('email') is-invalid @enderror"
+                               class="form-control bg-dark text-white border-secondary border-opacity-50"
                                placeholder="correo@ejemplo.com" required autofocus>
                     </div>
-                    @error('email')
-                    <span class="text-danger small mt-1 d-block">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <!-- Contraseña -->
@@ -70,12 +67,9 @@
                             <i class="bi bi-lock"></i>
                         </span>
                         <input type="password" name="password" id="password"
-                               class="form-control bg-dark text-white border-secondary border-opacity-50 @error('password') is-invalid @enderror"
+                               class="form-control bg-dark text-white border-secondary border-opacity-50"
                                placeholder="••••••••" required>
                     </div>
-                    @error('password')
-                    <span class="text-danger small mt-1 d-block">{{ $message }}</span>
-                    @enderror
                 </div>
 
                 <!-- Opciones (Recordarme / Olvidé clave) -->
@@ -129,5 +123,41 @@
 <!-- AdminLTE & Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/adminlte.js') }}"></script>
+
+<!-- SweetAlert2 JS para los Toasts -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Configuración global para que los Toasts se vean oscuros y acordes al diseño
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 7000,
+        timerProgressBar: true,
+        background: '#343a40', // Color oscuro (bg-dark)
+        color: '#ffffff', // Texto blanco
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    // Disparar Toast de Error (Cuenta suspendida o credenciales incorrectas)
+    @if(session('error'))
+    Toast.fire({
+        icon: 'error',
+        title: "{{ session('error') }}"
+    });
+    @endif
+
+    // Disparar Toast de Éxito (Cierre de sesión, etc.)
+    @if(session('success'))
+    Toast.fire({
+        icon: 'success',
+        title: "{{ session('success') }}"
+    });
+    @endif
+</script>
+
 </body>
 </html>

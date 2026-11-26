@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Kárdex Académico</title>
     <style>
-        body { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333; margin: 20px; }
+        /* Fondo blanco general para imprimir, texto oscuro para lectura */
+        body { font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #333333; background-color: #ffffff; margin: 20px; }
+
+        /* Detalles institucionales en rosa (#be185d) */
         .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #be185d; padding-bottom: 15px; }
         .header h1 { margin: 0; color: #be185d; font-size: 24px; text-transform: uppercase; }
         .header p { margin: 5px 0 0 0; color: #666; }
@@ -15,25 +18,26 @@
 
         .grades-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .grades-table th, .grades-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        .grades-table th { background-color: #fce7f3; color: #be185d; text-transform: uppercase; font-size: 12px; }
+        /* Cabecera sin fondo de color (ahorra tinta) pero con texto y borde rosa */
+        .grades-table th { background-color: #ffffff; color: #be185d; border-bottom: 2px solid #be185d; text-transform: uppercase; font-size: 12px; }
         .grades-table td.materia { text-align: left; }
 
         .badge-aprobada { color: green; font-weight: bold; }
 
-        .footer { position: fixed; bottom: -10px; width: 100%; text-align: center; font-size: 11px; color: #999; border-top: 1px solid #ddd; padding-top: 10px; }
+        .footer { position: fixed; bottom: -10px; width: 100%; text-align: center; font-size: 11px; color: #999; border-top: 1px solid #be185d; padding-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Sistema Académico</h1>
+    <h1>Universidad Modular Abierta</h1>
     <p>Kárdex Oficial de Calificaciones</p>
 </div>
 
 <table class="info-table">
     <tr>
         <td><strong>Estudiante:</strong> {{ $estudiante->user->name ?? 'N/A' }}</td>
-        <td><strong>Carnet:</strong> {{ $estudiante->carnet ?? 'N/A' }}</td>
+        <td><strong>Carnet:</strong> {{ $estudiante->documento_identidad ?? 'N/A' }}</td>
     </tr>
     <tr>
         <td><strong>Carrera:</strong> {{ $estudiante->carrera->nombre ?? 'N/A' }}</td>

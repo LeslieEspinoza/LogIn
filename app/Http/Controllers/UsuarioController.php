@@ -37,14 +37,13 @@ class UsuarioController extends Controller
 
         return redirect()->route('usuarios')->with('success', 'Usuario actualizado correctamente.');
     }
-    public function eliminarUsuario(User $user)
+    public function alternarEstado(User $user)
     {
+        // Si está activo, lo inactiva. Si está inactivo, lo activa.
+        $user->update(['is_active' => !$user->is_active]);
 
-        if ($user->delete()) {
-            return redirect()->route('usuarios')->with('success', 'Usuario eliminado correctamente');
-        }
-
-        return redirect()->route('usuarios')->with('error', 'No se pudo eliminar el usuario');
+        $mensaje = $user->is_active ? 'Usuario reactivado exitosamente.' : 'Usuario dado de baja.';
+        return redirect()->route('usuarios')->with('success', $mensaje);
     }
 
 }

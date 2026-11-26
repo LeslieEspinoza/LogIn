@@ -9,9 +9,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\ReporteController;
-// use App\Http\Controllers\EstudianteController;
-// use App\Http\Controllers\ProfesorController;
-// use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\AdminEstudianteController;
+use App\Http\Controllers\AdminProfesorController;
+ use App\Http\Controllers\MateriaController;
 // use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\InscripcionController;
 
@@ -57,10 +57,31 @@ Route::middleware(['auth', CheckStudentOnboarding::class])->group(function () {
         Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios');
         Route::post('/usuarios', [UsuarioController::class, 'insertarUsuario'])->name('usuarios.insertar');
         Route::put('/usuarios/{id}', [UsuarioController::class, 'actualizarUsuario'])->name('usuarios.actualizar');
-        Route::delete('/usuarios/{user}', [UsuarioController::class, 'eliminarUsuario'])->name('usuarios.destroy');
+        Route::put('/usuarios/{user}/estado', [UsuarioController::class, 'alternarEstado'])->name('usuarios.estado');
 
-        // Route::get('/profesores', [ProfesorController::class, 'index'])->name('profesores.index');
-        // Route::get('/carreras', [CarreraController::class, 'index'])->name('carreras.index');
+            // Panel Estudiantes
+        Route::prefix('admin/estudiantes')->name('admin.estudiantes.')->group(function () {
+            Route::get('/', [AdminEstudianteController::class, 'index'])->name('index');
+            Route::put('/{estudiante}/aprobar', [AdminEstudianteController::class, 'aprobarExpediente'])->name('aprobar');
+            Route::get('/{estudiante}/kardex', [AdminEstudianteController::class, 'kardex'])->name('kardex');
+            Route::post('/{estudiante}/reset-password', [AdminEstudianteController::class, 'resetPassword'])->name('reset_password');
+        });
+
+        //Panel Profesores
+        Route::prefix('admin/profesores')->name('admin.profesores.')->group(function () {
+            Route::get('/', [AdminProfesorController::class, 'index'])->name('index');
+            Route::post('/', [AdminProfesorController::class, 'store'])->name('store');
+            Route::put('/{profesor}', [AdminProfesorController::class, 'update'])->name('update');
+            Route::post('/{profesor}/crear-cuenta', [AdminProfesorController::class, 'crearCuenta'])->name('crear_cuenta');
+            Route::post('/{profesor}/reset-password', [AdminProfesorController::class, 'resetPassword'])->name('reset_password');
+            Route::put('/{profesor}/toggle-estado', [AdminProfesorController::class, 'toggleEstado'])->name('toggle_estado');
+        });
+        //Panel Materias
+
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::resource('materias', MateriaController::class);
+        });
+
     });
 
     // ADMIN Y DOCENTES (rol_id = 1, 2)

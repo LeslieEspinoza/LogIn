@@ -23,6 +23,7 @@ class Estudiante extends Model
         'nivel_academico',
         'paso_actual',
         'completado',
+        'expediente_aprobado',
     ];
 
     protected $casts = [

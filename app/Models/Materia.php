@@ -13,10 +13,13 @@ class Materia extends Model
     protected $table = 'materias';
 
     protected $fillable = [
+        'carrera_id',
+        'correlativo',
         'codigo',
         'nombre',
-        'carrera_id',
+        'ciclo',
         'uv',
+        'prerrequisito'
     ];
 
     protected $casts = [
@@ -46,5 +49,10 @@ class Materia extends Model
     public function prerequisitos()
     {
         return $this->hasMany(MateriaPrerequisito::class, 'materia_id');
+    }
+
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class);
     }
 }

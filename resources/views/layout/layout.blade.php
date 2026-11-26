@@ -67,6 +67,7 @@
     </nav>
 
     <!-- Sidebar-->
+    <!-- Sidebar-->
     <aside class="app-sidebar shadow bg-body-secondary">
         <div class="sidebar-brand text-center py-3 border-bottom border-body-subtle">
             <a href="{{ route('dashboard') }}" class="text-decoration-none text-dark fw-bold fs-5">
@@ -78,125 +79,20 @@
             <nav class="mt-3">
                 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
-                    <!-- DASHBOARD (SOLO ADMIN Y DOCENTES) -->
-                    @if(auth()->check() && in_array(auth()->user()->rol_id, [1, 2]))
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-speedometer2 text-pink"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    <!-- SECCIÓN ADMINISTRACIÓN (SOLO ADMINISTRADOR: rol_id = 1) -->
-                    @if(auth()->check() && auth()->user()->rol_id === 1)
-                        <li class="nav-header mt-3 fw-bold text-uppercase text-secondary small ps-3">Administración</li>
-                        <li class="nav-item">
-                            <a href="{{ route('usuarios') }}" class="nav-link {{ request()->routeIs('usuarios*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-people text-pink"></i>
-                                <p>Usuarios</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    <!-- SECCIÓN ACADÉMICO (ADMIN Y DOCENTES: rol_id = 1, 2) -->
-                    @if(auth()->check() && in_array(auth()->user()->rol_id, [1, 2]))
-                        <li class="nav-header mt-3 fw-bold text-uppercase text-secondary small ps-3">Académico</li>
-
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link opacity-75">
-                                <i class="nav-icon bi bi-person-video3 text-pink"></i>
-                                <p>Estudiantes</p>
-                            </a>
-                        </li>
-
-                        @if(auth()->user()->rol_id === 1)
-                            <li class="nav-item">
-                                <a href="javascript:void(0);" class="nav-link opacity-75">
-                                    <i class="nav-icon bi bi-person-workspace text-pink"></i>
-                                    <p>Profesores</p>
-                                </a>
-                            </li>
+                    @if(auth()->check())
+                        @if(auth()->user()->rol_id == 1)
+                            @include('layout.sidebars.admin')
+                        @elseif(auth()->user()->rol_id == 2)
+                            @include('layout.sidebars.docente')
+                        @elseif(auth()->user()->rol_id == 3)
+                            @include('layout.sidebars.estudiante')
                         @endif
-
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link opacity-75">
-                                <i class="nav-icon bi bi-journal-bookmark text-pink"></i>
-                                <p>Materias</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    <!-- SECCIÓN GESTIÓN INSTITUCIONAL -->
-                    <li class="nav-header mt-3 fw-bold text-uppercase text-secondary small ps-3">Gestión Institucional</li>
-
-                    @if(auth()->check() && auth()->user()->rol_id === 1)
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link opacity-75">
-                                <i class="nav-icon bi bi-award text-pink"></i>
-                                <p>Carreras</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    <!--  INSCRIPCIONES GENERAL -->
-                    @if(auth()->check() && in_array(auth()->user()->rol_id, [1, 2]))
-                        <li class="nav-item">
-                            <a href="{{ route('inscripcion') }}" class="nav-link {{ request()->routeIs('inscripcion*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-card-checklist text-pink"></i>
-                                <p>Inscripciones</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    @if(auth()->check() && in_array(auth()->user()->rol_id, [1, 2]))
-                        <li class="nav-item">
-                            <a href="{{ route('reportes.index') }}" class="nav-link {{ request()->routeIs('reportes.*') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-file-earmark-bar-graph text-pink"></i>
-                                <p>Reportes</p>
-                            </a>
-                        </li>
-                    @endif
-
-                    <!-- MENÚ EXCLUSIVO PARA ESTUDIANTES -->
-                    @if(auth()->check() && auth()->user()->rol_id == 3)
-                        <li class="nav-item">
-                            <a href="{{ route('estudiante.dashboard') }}" class="nav-link {{ request()->routeIs('estudiante.dashboard') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-house-door text-pink"></i>
-                                <p>Mi Panel</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('estudiante.inscripciones') }}" class="nav-link {{ request()->routeIs('estudiante.inscripciones') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-journal-check text-pink"></i>
-                                <p>Mis Inscripciones</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('estudiante.horario') }}" class="nav-link {{ request()->routeIs('estudiante.horario') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-calendar3 text-pink"></i>
-                                <p>Mi Horario</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('estudiante.calificaciones') }}" class="nav-link {{ request()->routeIs('estudiante.calificaciones') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-award text-pink"></i>
-                                <p>Calificaciones</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('estudiante.tramites') }}" class="nav-link {{ request()->routeIs('estudiante.tramites') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-file-earmark-text text-pink"></i>
-                                <p>Trámites</p>
-                            </a>
-                        </li>
                     @endif
 
                 </ul>
             </nav>
         </div>
     </aside>
-
     <!-- Contenido Principal -->
     <main class="app-main px-4 pb-5 pt-4">
         @yield('contenido')

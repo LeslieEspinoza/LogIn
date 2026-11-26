@@ -40,6 +40,11 @@ class Carrera extends Model
         return self::count();
     }
 
+    public function materias()
+    {
+        return $this->hasMany(Materia::class);
+    }
+
     public static function mostrarTodos() : array {
         return self::all();
     }

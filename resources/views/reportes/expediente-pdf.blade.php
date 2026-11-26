@@ -8,8 +8,8 @@
             margin: 25px;
         }
         body {
-            background-color: #181f2c;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #f37bbf;
             font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 0;
             padding: 15px;
@@ -32,14 +32,14 @@
             display: inline-block;
         }
         .title {
-            color: #ffffff;
+            color: #f37bbf;
             font-size: 18px;
             font-weight: bold;
             margin-top: 6px;
         }
         .card {
-            background-color: #111827;
-            border: 1px solid #374151;
+            background-color: #ffffff;
+            border: 1px solid #f5acd2;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 18px;
@@ -48,7 +48,7 @@
             color: #ec4899;
             font-size: 11px;
             font-weight: bold;
-            border-bottom: 1px solid #374151;
+            border-bottom: 1px solid #f6b2d1;
             padding-bottom: 6px;
             margin-bottom: 12px;
             text-transform: uppercase;
@@ -60,10 +60,10 @@
         }
         .info-table td {
             padding: 5px 0;
-            color: #d1d5db;
+            color: #000002;
         }
         .info-table td.label {
-            color: #9ca3af;
+            color: #000002;
             font-weight: bold;
             width: 30%;
         }
@@ -82,7 +82,7 @@
         }
         .data-table td {
             padding: 8px;
-            border-bottom: 1px solid #1f2937;
+            border-bottom: 1px solid #000002;
             color: #e5e7eb;
             font-size: 11px;
         }
@@ -98,7 +98,7 @@
             text-align: center;
             font-size: 9px;
             color: #6b7280;
-            border-top: 1px solid #374151;
+            border-top: 1px solid #000002;
             padding-top: 8px;
         }
     </style>
@@ -114,7 +114,7 @@
         </td>
         <td style="text-align: right; color: #9ca3af; font-size: 10px;">
             Fecha de Emisión:<br>
-            <strong style="color: #ffffff;">{{ date('d/m/Y') }}</strong>
+            <strong style="color: #f37bbf;">{{ date('d/m/Y') }}</strong>
         </td>
     </tr>
 </table>
